@@ -1,0 +1,53 @@
+bar:
+  height: 26
+  location: top
+  background: 1e1e2eff
+  foreground: cdd6f4ff
+  # left-spacing: 12
+  # right-spacing: 12
+
+  left:
+    - network:
+        content:
+          map:
+            conditions:
+              type == ether || type == wlan:
+                map:
+                  default:
+                    string: {text: " {name}: {state} ({ipv4}) "}
+                  conditions:
+                    ipv4 == "":
+                      string: {text: " {name}: {state} "}
+  right:
+    - niri-language:
+        content:
+            string: {text: "{language} "}
+    - backlight:
+        name: intel_backlight
+        content:
+          string: {text: "{percent}%☀️ "}
+    - pipewire:
+        anchors:
+          volume: &volume
+            conditions:
+              muted: {string: {text: "{linear_volume}%", foreground: ff0000ff}}
+              ~muted: {string: {text: "{linear_volume}%"}}
+        content:
+          list:
+            items:
+              - map:
+                  conditions:
+                    type == "sink":
+                      map:
+                        conditions:
+                          icon == "audio-headset-bluetooth":
+                            string: {text: "🎧 "}
+                    type == "source":
+                      - string: {text: "🎙 "}
+              - map:
+                  <<: *volume
+  center: 
+    - clock:
+        content:
+          - string: {text: "{date}", right-margin: 5}
+          - string: {text: "{time}"}

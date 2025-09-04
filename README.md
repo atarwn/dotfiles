@@ -5,7 +5,10 @@ I'm lazy ass fuck so don't expect a magical script that will set everything up b
 
 # Images
 
-todo
+<img width="1920" height="1080" alt="Screenshot from 2025-09-04 23-10-11" src="https://github.com/user-attachments/assets/1eb3b424-74fe-4890-a93d-28953784e42a" />
+
+<img width="1920" height="1080" alt="Screenshot from 2025-09-04 23-10-33" src="https://github.com/user-attachments/assets/1761a14e-2a5f-4d41-b0a2-140b137540c0" />
+
 
 # Deps
 
@@ -39,6 +42,8 @@ greetd gtkgreet cage elvish
 
 - **greetd**, **gtkgreet**, **cage**: Minimalist greeter setup
 - **elvish**: Cool shell
+
+[Wallpaper](https://www.reddit.com/r/ChangedFurry/comments/q65dwt/edited_some_puro_art_made_by_shin_and_turned_it/)
 
 ## Aur
 
@@ -113,3 +118,7 @@ My CodeOSS setup uses the following decorative extensions:
 [Catppuccin for VSCode](https://open-vsx.org/extension/Catppuccin/catppuccin-vsc)
 
 [Material Product Icons](https://open-vsx.org/extension/PKief/material-product-icons)
+
+# License
+
+Refer to Catppuccin's license

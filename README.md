@@ -100,6 +100,10 @@ niri-session
 ~>
 ```
 
+# Known problems!
+
+- wifi.sh doesnt work
+
 # Caution!
 
 Change my username in the configurations (at) to yours. But I recommend reading the section below.

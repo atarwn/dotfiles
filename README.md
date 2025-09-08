@@ -102,7 +102,7 @@ niri-session
 
 # Known problems!
 
-- wifi.sh doesnt work
+- wifi.sh doesnt work (fixed)
 
 # Caution!
 

@@ -81,8 +81,8 @@ bar:
                 - string:
                     text: "{percent}%"
                     on-click:
-                      left: "brightnessctl set +5%"
-                      right: "brightnessctl set 5%-"
+                      wheel-up: "brightnessctl set +5%"
+                      wheel-down: "brightnessctl set 5%-"
     - pipewire:
         content:
           map:
@@ -121,7 +121,11 @@ bar:
                     # колесом вверх/вниз меняем громкость на 5%
                     wheel-up: "wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+"
                     wheel-down: "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-
+    - battery:
+        name: BAT0
+        poll-interval: 30000
+        content:
+          string: {text: "󰁹 {capacity}%"}
     - label:
         content:
           - string:

@@ -1,53 +1,130 @@
 bar:
-  height: 26
   location: top
+  height: 28
   background: 1e1e2eff
   foreground: cdd6f4ff
-  # left-spacing: 12
-  # right-spacing: 12
+  spacing: 8
+  font: "LiterationMono Nerd Font,pixelsize=12"
+
+  font-shaping: full
 
   left:
+    - label:
+        content:
+          - string:
+              text: "  󱗼"
+              on-click: "nwg-drawer"
     - network:
         content:
           map:
             conditions:
-              type == ether || type == wlan:
+              type == ether:
                 map:
                   default:
-                    string: {text: " {name}: {state} ({ipv4}) "}
+                    list:
+                      items:
+                        - string:
+                            font: "Nerd Font:pixelsize=12"
+                            text: "  "
+                        - string:
+                            text: "{name}: {state} ({ipv4})  "
                   conditions:
                     ipv4 == "":
-                      string: {text: " {name}: {state} "}
-  right:
-    - niri-language:
+                      list:
+                        items:
+                          - string:
+                              font: "Nerd Font:pixelsize=12"
+                              text: "  "
+                          - string:
+                              text: "{name}: {state}  "
+
+              type == wlan:
+                map:
+                  default:
+                    list:
+                      spacing: 4
+                      items:
+                        - string:
+                            font: "Nerd Font:pixelsize=12"
+                            text: " "
+                        - string:
+                            text: "{name}: {state} ({ipv4})"
+                  conditions:
+                    ipv4 == "":
+                      list:
+                        spacing: 4
+                        items:
+                          - string:
+                              font: "Nerd Font:pixelsize=12"
+                              text: " "
+                          - string:
+                              text: "{name}: {state}"
+
+  center:
+    - clock:
         content:
-            string: {text: "{language} "}
+          - list:
+              spacing: 4
+              items:
+                - string:
+                    text: "{time} {date}"
+
+  right:
     - backlight:
         name: intel_backlight
         content:
-          string: {text: "{percent}%☀️ "}
+          - list:
+              spacing: 4
+              items:
+                - string:
+                    text: ""
+                - string:
+                    text: "{percent}%"
+                    on-click:
+                      left: "brightnessctl set +5%"
+                      right: "brightnessctl set 5%-"
     - pipewire:
-        anchors:
-          volume: &volume
+        content:
+          map:
             conditions:
-              muted: {string: {text: "{linear_volume}%", foreground: ff0000ff}}
-              ~muted: {string: {text: "{linear_volume}%"}}
-        content:
-          list:
-            items:
-              - map:
-                  conditions:
-                    type == "sink":
-                      map:
+              type == "sink":
+                list:
+                  spacing: 4
+                  items:
+                    - map:
                         conditions:
-                          icon == "audio-headset-bluetooth":
-                            string: {text: "🎧 "}
-                    type == "source":
-                      - string: {text: "🎙 "}
-              - map:
-                  <<: *volume
-  center: 
-    - clock:
+                          muted:
+                            string:
+                              text: "󰝟"
+                              foreground: ff0000ff
+                          ~muted:
+                            ramp:
+                              tag: linear_volume
+                              items:
+                                - string:
+                                    text: "󰕿"
+                                - string:
+                                    text: "󰖀"
+                                - string:
+                                    text: "󰕾"
+                    - map:
+                        conditions:
+                          muted:
+                            string:
+                              text: "{linear_volume}%"
+                              foreground: ff0000ff
+                          ~muted:
+                            string:
+                              text: "{linear_volume}%"
+                  on-click:
+                    left: "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+                    # колесом вверх/вниз меняем громкость на 5%
+                    wheel-up: "wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+"
+                    wheel-down: "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+
+    - label:
         content:
-          - string: {text: "{date}", right-margin: 5}
-          - string: {text: "{time}"}
+          - string:
+              text: "⏻  "
+              on-click: "~/.power.sh"
+

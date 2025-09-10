@@ -266,6 +266,7 @@ layout {
 spawn-at-startup "swww-daemon"
 spawn-at-startup "xwayland-satellite" ":0"
 spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
+spawn-at-startup "/home/at/.config/battery.sh"
 spawn-at-startup "mako"
 environment {
     DISPLAY ":0"

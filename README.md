@@ -46,6 +46,8 @@ greetd gtkgreet cage elvish
 
 [Wallpaper](https://www.reddit.com/r/ChangedFurry/comments/q65dwt/edited_some_puro_art_made_by_shin_and_turned_it/)
 
+p.s. Put it in ~/Pictures/Backgrounds
+
 ## Aur
 
 ```

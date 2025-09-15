@@ -360,6 +360,8 @@ binds {
     // Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Mod+D hotkey-overlay-title="Run an Application: nwg-drawer" { spawn "nwg-drawer"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: hyprlock" { spawn "hyprlock"; }
+    Super+Alt+B hotkey-overlay-title="Set the background" { spawn "~/.config/background.sh"; }
+    Super+Alt+Y hotkey-overlay-title="Switch yambar's colors" { spawn "~/.config/toggle-yambar.sh"; }
 
     // You can also use a shell. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument in the end.

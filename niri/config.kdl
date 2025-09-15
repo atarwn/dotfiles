@@ -358,10 +358,7 @@ binds {
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T hotkey-overlay-title="Open a Terminal: foot" { spawn "foot"; }
     // Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
-    Mod+D hotkey-overlay-title="Run an Application: nwg-drawer" { spawn "nwg-drawer"; }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen: hyprlock" { spawn "hyprlock"; }
-    Super+Alt+B hotkey-overlay-title="Set the background" { spawn "~/.config/background.sh"; }
-    Super+Alt+Y hotkey-overlay-title="Switch yambar's colors" { spawn "~/.config/toggle-yambar.sh"; }
+    Mod+D hotkey-overlay-title="Run an application drawer" { spawn "~/.config/hide-yb-when-nwg.sh"; }
 
     // You can also use a shell. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument in the end.
@@ -596,8 +593,11 @@ binds {
 
     // The quit action will show a confirmation dialog to avoid accidental exits.
     // Mod+Shift+E { quit; }
-    Mod+Shift+E { spawn "/home/at/.config/power.sh"; }
-    Mod+Shift+N { spawn "/home/at/.config/wifi.sh"; }
+    Super+Shift+E hotket-overlay-title="Run power menu" { spawn "/home/at/.config/power.sh"; }
+    Super+Shift+N hotket-overlay-title="Run wifi menu" { spawn "/home/at/.config/wifi.sh"; }
+    Super+Shift+L hotkey-overlay-title="Lock the Screen: hyprlock" { spawn "hyprlock"; }
+    Super+Shift+B hotkey-overlay-title="Set the background" { spawn "~/.config/background.sh"; }
+    Super+Shift+Y hotkey-overlay-title="Switch yambar's colors" { spawn "~/.config/toggle-yambar.sh"; }
     Ctrl+Alt+Delete { quit; }
 
     // Powers off the monitors. To turn them back on, do any input like

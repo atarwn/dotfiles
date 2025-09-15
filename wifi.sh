@@ -1,27 +1,61 @@
-#!/bin/sh
+#!/bin/bash
 
 iface="wlan0"
 
-iwctl station "$iface" scan
-# Extract network names using awk, handling spaces and the connected marker
-networks=$(iwctl station wlan0 get-networks | sed 's/\x1B\[[0-9;]*[A-Za-z]//g' \
-  | awk 'NR>4 { match($0, /^(.*)psk/,a); if (a[1]!="") print substr(a[1],7) }')
+networks=$(
+    iwctl station "$iface" get-networks |
+    sed 's/\x1B\[[0-9;]*[A-Za-z]//g; s/\s*\*\*\*\*\s.*//g; $d' |
+    awk 'NR>4 {
+        sub(/^ *>/,">");
+        sec=$NF; $NF="";
+        name=$0; sub(/^ +/,"",name);
+        print name "\t" sec
+    }'
+)
 
-[ -z "$networks" ] && echo "WiFi: No networks available" && exit 1
+choice=$(echo "$networks" | fuzzel --dmenu --prompt "wifi> " --placeholder "Select WiFi" | cut -f1)
+sec=$(echo "$networks" | grep -F "$choice" | cut -f2)
 
-ssid=$(printf "%s\n" "$networks" | fuzzel -w 100 --dmenu --prompt "wifi> " --placeholder "Select WiFi network")
-[ -z "$ssid" ] && exit 0
-
-pass=$(fuzzel --dmenu --prompt "password> " --placeholder "Enter WiFi password" --password)
-
-if [ -z "$pass" ]; then
-    iwctl station "$iface" connect "$ssid"
-else
-    iwctl --passphrase "$pass" station "$iface" connect "$ssid"
+if [[ -z "$choice" ]]; then
+    fyi "Empty choice" "Not connecting"
+    exit 1
 fi
 
-if [ $? -eq 0 ]; then
-    echo "WiFi: Connected to $ssid"
+ssid=$(echo "$choice" | sed 's/^>\s*//; s/[[:space:]]*$//')
+
+echo "SSID: '$ssid'"
+echo "SECURITY: $sec"
+
+if [[ "$choice" =~ ^">" ]]; then
+    iwctl station "$iface" disconnect
+    fyi "WiFi" "Disconnected from $ssid"
+    exit 0
+fi
+
+case "$sec" in
+    open)
+        iwctl station "$iface" connect "$ssid"
+        ;;
+    psk|sae|wep)
+        pass=$(fuzzel --dmenu --prompt "password> " --placeholder "Enter WiFi password" --password -l 0 )
+        if [[ -z "$pass" ]]; then
+            iwctl station "$iface" connect "$ssid"
+        else
+            iwctl --passphrase "$pass" station "$iface" connect "$ssid"
+        fi
+        ;;
+    8021x|eap)
+        fyi "WiFi" "802.1x/EAP networks require extra setup"
+        exit 1
+        ;;
+    *)
+        fyi "WiFi" "Unknown security type: $sec"
+        exit 1
+        ;;
+esac
+
+if [[ $? -eq 0 ]]; then
+    fyi "WiFi" "Connected to $ssid"
 else
-    echo "WiFi: Error connecting to $ssid"
+    fyi "WiFi" "Error connecting to $ssid"
 fi

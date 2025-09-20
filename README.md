@@ -34,6 +34,7 @@ mako yambar nwg-look swww
 - **Yambar**: just a bar, sometimes i need it
 - **nwg-look**: Program to set gtk3/4 themes, icons and cursors
 - **swww**: A Solution to your Wayland Wallpaper Woes 
+- **xdg-desktop-portal-gtk**: Desktop portal
 
 ## Opts
 

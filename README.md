@@ -13,7 +13,7 @@ I'm lazy ass fuck so don't expect a magical script that will set everything up b
 # Deps
 
 ```
-niri fuzzel iwd nwg-drawer foot hyprlock git base-devel
+niri fuzzel iwd nwg-drawer foot hyprlock git base-devel xdg-desktop-portal xdg-desktop-portal-gtk polkit-gnome
 ```
 
 - **Niri**: Main WM
